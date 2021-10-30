@@ -1,0 +1,22 @@
+#not-found-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    height: 100%;
+    #not-found-text{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        text-align: center;
+        height: 100%;
+        & > h1{
+            font-size: clamp(2.5rem, 15vw,10rem);
+            font-weight: 900;
+            line-height: 2rem;
+            height: 100%;
+        }
+    }
+}

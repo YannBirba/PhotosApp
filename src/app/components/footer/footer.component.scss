@@ -1,0 +1,12 @@
+#footer-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  min-height: 50px;
+
+  .footer-text {
+    text-align: center;
+  }
+}

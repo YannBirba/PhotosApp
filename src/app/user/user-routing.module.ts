@@ -7,7 +7,7 @@ import { UserViewComponent } from './components/user-view/user-view.component';
 const routes: Routes = [
   { path: 'login', component: LoginViewComponent },
   { path: 'register', component: RegisterViewComponent },
-  { path: '', component:UserViewComponent },
+  { path: '', component: UserViewComponent },
 ];
 
 @NgModule({

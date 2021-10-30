@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   APP_VERSION: 'a0.1',
   API_BASE_PATH: 'https://127.0.0.1:8000/api/',
+  CURRENT_YEAR: new Date().getFullYear(),
 };
 
 /*
