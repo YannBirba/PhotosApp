@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MenuComponent } from './components/menu/menu.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { AuthService } from 'src/shared/services/auth/auth.service';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,7 @@ import { FooterComponent } from './components/footer/footer.component';
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [HttpClientModule,AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
