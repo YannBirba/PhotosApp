@@ -1,1 +1,6 @@
-<p>register-view works!</p>
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <input type="text" formControlName="name" placeholder="name">
+    <input type="email" formControlName="email" placeholder="email">
+    <input type="password" formControlName="password" placeholder="password">
+    <button type="submit" [disabled]="registerForm.invalid">Soumettre</button>
+</form>

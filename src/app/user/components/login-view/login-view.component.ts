@@ -1,15 +1,39 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { AuthService } from 'src/shared/services/auth/auth.service';
 
 @Component({
   selector: 'app-login-view',
   templateUrl: './login-view.component.html',
   styleUrls: ['./login-view.component.scss']
 })
-export class LoginViewComponent implements OnInit {
+export class LoginViewComponent{
+  public loginForm: FormGroup;
+  private subscription: any;
+  constructor(
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+  ) {
+    this.loginForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]],
+    });
+  }
 
-  constructor() { }
-
-  ngOnInit(): void {
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
+  onSubmit() : void {
+    const formData: any = this.loginForm.value;
+    const response$: Observable<any> = this.authService.login(formData);
+    this.subscription = response$.subscribe(
+      (response) => console.log(response),
+      (responseError) => console.error(responseError),
+      () => console.log('DONE!')
+    );
   }
 
 }

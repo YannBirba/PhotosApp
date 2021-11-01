@@ -1,1 +1,5 @@
-<p>login-view works!</p>
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <input type="email" formControlName="email" placeholder="email">
+    <input type="password" formControlName="password" placeholder="password">
+    <button type="submit" [disabled]="loginForm.invalid">Soumettre</button>
+</form>

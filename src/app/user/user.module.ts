@@ -6,6 +6,7 @@ import { LoginViewComponent } from './components/login-view/login-view.component
 import { RegisterViewComponent } from './components/register-view/register-view.component';
 import { ForgotPasswordViewComponent } from './components/forgot-password-view/forgot-password-view.component';
 import { UserViewComponent } from './components/user-view/user-view.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { UserViewComponent } from './components/user-view/user-view.component';
   ],
   imports: [
     CommonModule,
-    UserRoutingModule
+    UserRoutingModule,
+    ReactiveFormsModule,
   ]
 })
 export class UserModule { }

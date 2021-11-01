@@ -5,10 +5,9 @@ import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-
   constructor(private http: HttpClient) {}
 
   login(formData: any): Observable<any> {
@@ -40,9 +39,19 @@ export class AuthService {
     return response$;
   }
   getUser(): Observable<User> {
-    let response$: Observable<any> = this.http.get<User>(environment.API_BASE_PATH + 'user', {
-      withCredentials: true,
-    });
+    let response$: Observable<any> = this.http.get<User>(
+      environment.API_BASE_PATH + 'user',
+      {
+        withCredentials: true,
+      }
+    );
+    return response$;
+  }
+  isLogIn(): Observable<any> {
+    let response$: Observable<any> = this.http.get(
+      environment.API_BASE_PATH + 'islogin',
+      { withCredentials: true }
+    );
     return response$;
   }
 }
