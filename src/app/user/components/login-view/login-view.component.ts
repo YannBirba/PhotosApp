@@ -6,14 +6,14 @@ import { AuthService } from 'src/shared/services/auth/auth.service';
 @Component({
   selector: 'app-login-view',
   templateUrl: './login-view.component.html',
-  styleUrls: ['./login-view.component.scss']
+  styleUrls: ['./login-view.component.scss'],
 })
-export class LoginViewComponent{
+export class LoginViewComponent {
   public loginForm: FormGroup;
   private subscription: any;
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthService,
+    private authService: AuthService
   ) {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -26,7 +26,7 @@ export class LoginViewComponent{
       this.subscription.unsubscribe();
     }
   }
-  onSubmit() : void {
+  onSubmit(): void {
     const formData: any = this.loginForm.value;
     const response$: Observable<any> = this.authService.login(formData);
     this.subscription = response$.subscribe(
@@ -35,5 +35,4 @@ export class LoginViewComponent{
       () => console.log('DONE!')
     );
   }
-
 }

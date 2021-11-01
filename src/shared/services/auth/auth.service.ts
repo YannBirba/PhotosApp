@@ -8,7 +8,8 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
   login(formData: any): Observable<any> {
     let response$: Observable<any> = this.http.post(
@@ -37,9 +38,9 @@ export class AuthService {
     );
     return response$;
   }
-  isLogIn(): Observable<any> {
+  isLoggedIn(): Observable<any> {
     let response$: Observable<any> = this.http.get(
-      environment.API_BASE_PATH + 'islogin'
+      environment.API_BASE_PATH + 'isloggedin'
     );
     return response$;
   }

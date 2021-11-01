@@ -17,7 +17,6 @@ ngOnInit(): void {
   this.getUserProfile();
   }
   getUserProfile() {
-    console.log(this.authService.isLogIn());
     this.user$ = this.authService.getUser();
   }
 }
