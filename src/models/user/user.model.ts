@@ -2,10 +2,12 @@ export class User {
   private _name: string;
   private _email: string;
   private _password: string;
-  constructor(name: string, email: string, password: string) {
+  private _isAdmin: boolean;
+  constructor(name: string, email: string, password: string, isAdmin = false) {
     this._name = name;
     this._email = email;
     this._password = password;
+    this._isAdmin = isAdmin;
   }
 
   public get name(): string {
@@ -29,5 +31,13 @@ export class User {
 
   public set password(value: string) {
     this._password = value;
+  }
+
+  public get isAdmin(): boolean {
+    return this._isAdmin;
+  }
+
+  public set isAdmin(value: boolean) {
+    this._isAdmin = value;
   }
 }

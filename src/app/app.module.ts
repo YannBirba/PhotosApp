@@ -20,14 +20,13 @@ import { CookieInterceptorService } from 'src/shared/services/cookieInterceptor/
   providers: [
     HttpClientModule,
     AuthService,
-
+{
+  provide: HTTP_INTERCEPTORS,
+  useClass: CookieInterceptorService,
+  multi: true,
+},
   ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
 
-// {
-//   provide: HTTP_INTERCEPTORS,
-//   useClass: CookieInterceptorService,
-//   multi: true,
-// },
