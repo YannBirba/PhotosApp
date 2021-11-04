@@ -11,20 +11,18 @@ import { AuthService } from '../services/auth/auth.service';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuardGuard implements CanActivate {
+export class AuthGuard implements CanActivate {
   constructor(private authService: AuthService) {}
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ):
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree>
-    | boolean
-    | UrlTree {
-    // if ((this.authService.isLogIn = true)) {
+  ): boolean {
+    if (route.url[0].path === 'admin') {
       return true;
-    // } else {
-    //   return false;
-    // }
+    }
+    else if (1 == 1) {//this.authService.isLogIn = true
+      return true;
+    }
+    return false;
   }
 }

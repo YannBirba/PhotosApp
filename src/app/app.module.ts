@@ -8,6 +8,7 @@ import { MenuComponent } from './components/menu/menu.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { AuthService } from 'src/shared/services/auth/auth.service';
 import { CookieInterceptorService } from 'src/shared/services/cookieInterceptor/cookie-interceptor.service';
+import { AuthGuard } from 'src/shared/guards/auth-guard.guard';
 
 @NgModule({
   declarations: [AppComponent, MenuComponent, FooterComponent],
@@ -20,13 +21,13 @@ import { CookieInterceptorService } from 'src/shared/services/cookieInterceptor/
   providers: [
     HttpClientModule,
     AuthService,
-{
-  provide: HTTP_INTERCEPTORS,
-  useClass: CookieInterceptorService,
-  multi: true,
-},
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: CookieInterceptorService,
+      multi: true,
+    },
+    AuthGuard,
   ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
-
