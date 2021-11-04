@@ -19,6 +19,7 @@ export class RegisterViewComponent implements OnDestroy{
       name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
+      is_admin: [false]
     });
   }
 

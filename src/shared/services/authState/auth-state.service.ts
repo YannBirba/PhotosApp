@@ -6,12 +6,12 @@ import { AuthService } from '../auth/auth.service';
   providedIn: 'root'
 })
 export class AuthStateService {
-  private userState : BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.authService.isLoggedIn());
-  userAuthState = this.userState.asObservable();
+  // private userState : BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.authService.isLoggedIn());
+  // userAuthState = this.userState.asObservable();
 
-  constructor(public authService: AuthService) {}
+  // constructor(public authService: AuthService) {}
 
-  setAuthState(value: boolean) : void {
-    this.userState.next(value);
-  }
+  // setAuthState(value: boolean) : void {
+  //   this.userState.next(value);
+  // }
 }

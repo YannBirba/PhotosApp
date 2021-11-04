@@ -23,6 +23,7 @@ export class AuthService {
       environment.API_BASE_PATH + 'register',
       formData,
     );
+    console.log(formData);    
     return response$;
   }
   logout(): Observable<any> {

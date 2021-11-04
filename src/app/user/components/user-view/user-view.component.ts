@@ -15,6 +15,7 @@ export class UserViewComponent implements OnInit {
 
 ngOnInit(): void {
   this.getUserProfile();
+  this.user$.subscribe(user => console.log(user.is_admin));
   }
   getUserProfile() {
     this.user$ = this.authService.getUser();

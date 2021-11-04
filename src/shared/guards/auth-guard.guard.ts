@@ -21,10 +21,10 @@ export class AuthGuardGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    if ((this.authService.isLogIn = true)) {
+    // if ((this.authService.isLogIn = true)) {
       return true;
-    } else {
-      return false;
-    }
+    // } else {
+    //   return false;
+    // }
   }
 }
