@@ -1,3 +1,9 @@
-<p>{{(user$ | async)?.name}}</p>
-<p>{{(user$ | async)?.email}}</p>
-<p>{{(user$ | async)?.is_admin}}</p>
+<div *ngIf="(user$ | async) as user; else disconnected">
+<p>Nom : {{user.name}}</p>
+<p>Mail : {{user.email}}</p>
+<p>Is admin : {{user.is_admin}}</p>
+</div>
+<ng-template #disconnected>
+    <p>L'utilisateur est déconnecté</p>
+  </ng-template>
+<p *ngIf="userAuthState$ | async as userAuthState" >Is loggedIn : {{ userAuthState.is_logged_in }}</p>

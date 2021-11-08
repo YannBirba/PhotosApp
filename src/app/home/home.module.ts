@@ -11,6 +11,6 @@ import { HomeViewComponent } from './components/home-view/home-view.component';
   imports: [
     CommonModule,
     HomeRoutingModule
-  ]
+  ],
 })
 export class HomeModule { }
