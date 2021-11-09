@@ -10,6 +10,7 @@ import {
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AuthState } from 'src/models/auth-state/auth-state.model';
+import { User } from 'src/models/user/user.model';
 import { AuthService } from '../services/auth/auth.service';
 
 @Injectable({
@@ -18,32 +19,58 @@ import { AuthService } from '../services/auth/auth.service';
 export class AuthGuard implements CanActivate {
   private unsubscribe$ = new Subject<void>();
   private authState?: AuthState;
-  constructor(private authService: AuthService, private router: Router) { }
+  private user?: User;
+  constructor(private authService: AuthService, private router: Router) {}
   canActivate(
     route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
+    state: RouterStateSnapshot,
   ): boolean {
-    this.authService.isLoggedIn()
-    .pipe(takeUntil(this.unsubscribe$))
-    .subscribe(response => {
-      this.authState = response;
-    });
+
+    this.authService
+      .isLoggedIn()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((response) => {
+        this.authState = response;
+      });
+      this.unsubscribe$.next();
+      this.unsubscribe$.complete();
     if (this.authState) {
       if (this.authState.is_logged_in) {
-        console.log('AuthGuard: canActivate: true');
-        return true;
-      }
-      else {
+        this.authService
+        .getUser()
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe((response) => {
+          this.user = response;
+        });
+        this.unsubscribe$.next();
+        this.unsubscribe$.complete();
+        if (this.user) {
+          if (route.url[0]) {
+            if (route.url[0].path === 'admin') {
+            if (this.user.is_admin) {
+              return true;
+            } else {
+              this.router.navigate(['/user/login']);
+              return false;
+            }
+            }
+            else {
+              return true;
+            }
+          }
+          else {
+            return true;
+          }
+        }
+        else {
+          return true;
+        }
+      } else {
         this.router.navigate(['/user/login']);
         return false;
       }
     }
-    
-      // if (route.url[0].path === 'admin') {
-        // if (this.authService.isLoggedIn) {
-        //   return true;
-        // }
-      // }
+    this.router.navigate(['/user/login']);
     return false;
-    }
+  }
 }

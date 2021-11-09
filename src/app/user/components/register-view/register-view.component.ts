@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { MustMatch } from 'src/shared/helpers/must-match.validator';
+import { MustMatch } from '../../../../shared/helpers/must-match.validator';
 import { AuthService } from 'src/shared/services/auth/auth.service';
 
 @Component({
@@ -19,12 +19,12 @@ export class RegisterViewComponent implements OnDestroy{
     this.registerForm = this.formBuilder.group({
       name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required,Validators.minLength(6)]],
-      password_confirmation: ['', Validators.required,Validators.minLength(6),    {validator: MustMatch('password', 'password_confirmation')
-    },],
-      is_admin: [false],
-
-    });
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      password_confirmation: ['', [Validators.required, Validators.minLength(6)]],
+      is_admin: [false]
+    },
+      { validator: [MustMatch.match('password', 'password_confirmation')] }
+    );
   }
 
   ngOnDestroy(): void {
