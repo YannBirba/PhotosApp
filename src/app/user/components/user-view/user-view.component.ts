@@ -10,19 +10,15 @@ import { AuthService } from 'src/shared/services/auth/auth.service';
   styleUrls: ['./user-view.component.scss']
 })
 export class UserViewComponent implements OnInit {
-  public user$!: Observable<User>;
-  public userAuthState?: AuthState;
-public userAuthState$: Observable<AuthState>;
+  public user$: Observable<User>;
+  public userAuthState$: Observable<AuthState>;
   constructor(private authService: AuthService) {
     this.userAuthState$ = this.authService.isLoggedIn();
-  }
-
-ngOnInit(): void {
-  this.getUserProfile();
-  this.userAuthState$ = this.authService.isLoggedIn();
-  }
-  getUserProfile() {
     this.user$ = this.authService.getUser();
   }
 
+ngOnInit(): void {
+  this.user$ = this.authService.getUser();
+  this.userAuthState$ = this.authService.isLoggedIn();
+  }
 }
