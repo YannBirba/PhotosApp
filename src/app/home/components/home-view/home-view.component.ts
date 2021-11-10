@@ -8,15 +8,8 @@ import { AuthService } from 'src/shared/services/auth/auth.service';
   templateUrl: './home-view.component.html',
   styleUrls: ['./home-view.component.scss']
 })
-export class HomeViewComponent implements OnInit {
-  public userAuthState?: AuthState;
-  public userAuthState$: Observable<AuthState>;
-  constructor(private authService: AuthService) {
-    this.userAuthState$ = this.authService.isLoggedIn();
-  }
-
-  ngOnInit(): void {
-    this.userAuthState$ = this.authService.isLoggedIn();
+export class HomeViewComponent{
+  constructor() {
   }
 
 }
