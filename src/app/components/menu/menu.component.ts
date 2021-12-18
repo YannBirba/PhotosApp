@@ -25,6 +25,7 @@ export class MenuComponent implements OnInit {
       (responseError) => console.error(responseError),
       () => console.log('DONE!')
     );
+    this.router.navigate(['/login']);
   }
   ngOnInit(): void {
     this.user$ = this.authService.getUser();

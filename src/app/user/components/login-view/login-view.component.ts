@@ -36,5 +36,6 @@ export class LoginViewComponent {
       (responseError) => console.error(responseError),
       () => console.log('DONE!')
     );
+    this.router.navigate(['/user']);
   }
 }
