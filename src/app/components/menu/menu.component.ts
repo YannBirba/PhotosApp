@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AuthState } from 'src/models/auth-state/auth-state.model';
 import { User } from 'src/models/user/user.model';
 import { AuthService } from 'src/shared/services/auth/auth.service';
 
@@ -13,9 +12,8 @@ import { AuthService } from 'src/shared/services/auth/auth.service';
 export class MenuComponent implements OnInit {
   private subscription: any;
   public user$: Observable<User>;
-  public userAuthState$: Observable<AuthState>;
   constructor(private authService: AuthService, private router: Router) {
-    this.userAuthState$ = this.authService.isLoggedIn();
+    // this.userAuthState$ = this.authService.isLoggedIn();
     this.user$ = this.authService.getUser();
   }
   logout(): void {
@@ -29,6 +27,6 @@ export class MenuComponent implements OnInit {
   }
   ngOnInit(): void {
     this.user$ = this.authService.getUser();
-    this.userAuthState$ = this.authService.isLoggedIn();
+    // this.userAuthState$ = this.authService.isLoggedIn();
   }
 }

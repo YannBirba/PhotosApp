@@ -17,7 +17,7 @@ export class AuthService {
       environment.API_BASE_PATH + 'login',
       formData
     );
-    this.isLoggedIn$.next(true);
+    // this.isLoggedIn$.next(true);
     return response$;
   }
   register(formData: any): Observable<any> {

@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  APP_VERSION: 'a0.1',
+  APP_VERSION: 'alpha 0.2.1',
   API_BASE_PATH: 'http://localhost:8000/api/',
   CURRENT_YEAR: new Date().getFullYear(),
 };
