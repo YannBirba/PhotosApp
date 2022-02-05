@@ -9,7 +9,6 @@ import {
 } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { AuthState } from 'src/models/auth-state/auth-state.model';
 import { User } from 'src/models/user/user.model';
 import { AuthService } from '../services/auth/auth.service';
 

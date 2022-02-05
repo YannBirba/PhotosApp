@@ -3,13 +3,12 @@ import { Observable, Subject } from 'rxjs';
 import { User } from 'src/models/user/user.model';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { AuthState } from 'src/models/auth-state/auth-state.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private _isLoggedIn$ = new Subject<boolean>();
+  private isLoggedIn$ = new Observable<boolean>();
   constructor(private http: HttpClient) {
   }
 
@@ -18,7 +17,7 @@ export class AuthService {
       environment.API_BASE_PATH + 'login',
       formData
     );
-    this._isLoggedIn$.next(true);
+    this.isLoggedIn$.next(true);
     return response$;
   }
   register(formData: any): Observable<any> {
@@ -42,10 +41,7 @@ export class AuthService {
     );
     return response$;
   }
-  isLoggedIn(): Observable<AuthState> {
-    let response$: Observable<any> = this.http.get(
-      environment.API_BASE_PATH + 'isloggedin'
-    );
-    return response$;
+  isLoggedIn(): Observable<Boolean> {
+    return this.isLoggedIn$;
   }
 }
