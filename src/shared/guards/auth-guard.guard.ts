@@ -9,7 +9,7 @@ import {
 } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { User } from 'src/models/user/user.model';
+import { User } from 'src/models/user.model';
 import { AuthService } from '../services/auth/auth.service';
 
 @Injectable({

@@ -32,10 +32,13 @@ export class LoginViewComponent {
     const formData: any = this.loginForm.value;
     const response$: Observable<any> = this.authService.login(formData);
     this.subscription = response$.subscribe(
-      (response) => console.log(response),
+      (response) => {
+        alert(response);
+        this.router.navigate(['']);
+      },
       (responseError) => console.error(responseError),
       () => console.log('DONE!')
     );
-    this.router.navigate(['/user']);
+
   }
 }
