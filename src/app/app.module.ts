@@ -9,6 +9,12 @@ import { FooterComponent } from './components/footer/footer.component';
 import { AuthService } from 'src/shared/services/auth/auth.service';
 import { CookieInterceptorService } from 'src/shared/services/cookieInterceptor/cookie-interceptor.service';
 import { AuthGuard } from 'src/shared/guards/auth-guard.guard';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { eventsReducer } from 'src/shared/state/event/events.reducer';
+import { environment } from 'src/environments/environment';
+import { EventEffects } from 'src/shared/state/event/events.effects';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [AppComponent, MenuComponent, FooterComponent],
@@ -17,6 +23,13 @@ import { AuthGuard } from 'src/shared/guards/auth-guard.guard';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    StoreModule.forRoot({ events: eventsReducer }),
+    EffectsModule.forRoot([EventEffects]),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+      autoPause: true,
+    }),
   ],
   providers: [
     HttpClientModule,

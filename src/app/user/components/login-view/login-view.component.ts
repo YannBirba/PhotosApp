@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { AuthService } from 'src/shared/services/auth/auth.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { AuthService } from 'src/shared/services/auth/auth.service';
 })
 export class LoginViewComponent {
   public loginForm: FormGroup;
-  private subscription: any;
+  private subscription?: Subscription;
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,

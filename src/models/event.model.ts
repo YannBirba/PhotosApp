@@ -6,5 +6,5 @@ export interface Event {
     start_date?: Date;
     end_date?: Date;
     location?: string;
-    year: Date;
+    year: number;
 }
