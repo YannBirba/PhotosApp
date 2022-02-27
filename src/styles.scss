@@ -1,13 +1,16 @@
-@import 'reset.scss';
+// @import 'reset.scss';
 @import 'variables.scss';
-
+*{
+  font-family: $font-family;
+  font-weight: 600;
+}
 html {
-  font-size: 16px;
+  scroll-behavior: smooth;
 
   body {
-    line-height: 1.3rem;
-    font-size: 100%;
+    line-height: 1;
     font-family: $font-family;
+    font-size: 1rem;
     display: flex;
     flex-flow: column wrap;
     justify-content: center;
@@ -59,4 +62,15 @@ html {
       // }
     }
   }
+}
+#app-menu-list{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+.event-item{
+  min-width: 16rem;
+  margin: 0.5rem;
 }

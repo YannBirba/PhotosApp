@@ -1,0 +1,21 @@
+<div class="event-item" *ngFor="let event of events; trackBy: trackByMethod">
+  <div *ngIf="event; else loading">
+    <details>
+      <summary>
+        <p *ngIf="event.description; else nodesc">
+          {{ event.id }} - {{ event.name }} - {{ event.description }}
+        </p>
+        <ng-template #nodesc> {{ event.id }} - {{ event.name }} </ng-template>
+      </summary>
+      <p *ngIf="event.location">{{ event.location }}</p>
+      <p *ngIf="event.start_date"> Date de début : {{ event.start_date | date : "dd/MM/yyyy"  }}</p>
+      <p *ngIf="event.end_date"> Date de fin : {{ event.end_date | date : "dd/MM/yyyy" }}</p>
+      <p>{{ event.year }}</p>
+      <button (click)="update.emit(event)">Modifier</button>
+      <button (click)="delete.emit(event.id)">Supprimer</button>
+    </details>
+  </div>
+  <ng-template #loading>
+    <p>Loading...</p>
+  </ng-template>
+</div>

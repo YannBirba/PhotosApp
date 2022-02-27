@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { User } from 'src/models/user/user.model';
+import { User } from 'src/models/user.model';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 
@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class AuthService {
-  private isLoggedIn$ = new Observable<boolean>();
+  // private isLoggedIn$ = new Observable<boolean>();
   constructor(private http: HttpClient) {
   }
 
@@ -41,7 +41,7 @@ export class AuthService {
     );
     return response$;
   }
-  isLoggedIn(): Observable<Boolean> {
-    return this.isLoggedIn$;
-  }
+  // isLoggedIn(): Observable<Boolean> {
+  //   return this.isLoggedIn$;
+  // }
 }

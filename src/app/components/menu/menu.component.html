@@ -4,7 +4,9 @@
     <ul id="app-menu-list">
       <li id="app-menu-item-01" class="app-menu-item"><a class="app-menu-link" routerLink="">Accueil</a></li>
       <li id="app-menu-item-04" class="app-menu-item"><a class="app-menu-link" routerLink="/user">Mon compte</a></li>
-      <li *ngIf="(user$ | async)?.is_admin" id="app-menu-item-05" class="app-menu-item"><a class="app-menu-link" routerLink="/admin">Administration</a></li>
+      <li id="app-menu-item-05" class="app-menu-item"><a class="app-menu-link" routerLink="/user/login">Se connecter</a></li>
+
+      <!-- <li *ngIf="(user$ | async)?.is_admin" id="app-menu-item-05" class="app-menu-item"><a class="app-menu-link" routerLink="/admin">Administration</a></li> -->
       <li id="app-menu-item-06" class="app-menu-item"><button (click)="logout()" routerLink="/user/login">Se déconnecter</button></li>
     </ul>
 </nav>

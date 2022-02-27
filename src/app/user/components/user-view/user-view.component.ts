@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { User } from 'src/models/user/user.model';
+import { User } from 'src/models/user.model';
 import { AuthService } from 'src/shared/services/auth/auth.service';
 
 @Component({
@@ -9,10 +9,10 @@ import { AuthService } from 'src/shared/services/auth/auth.service';
   styleUrls: ['./user-view.component.scss']
 })
 export class UserViewComponent implements OnInit {
-  public user$: Observable<User>;
+  public user$!: Observable<User>;
   constructor(private authService: AuthService) {
     // this.userAuthState$ = this.authService.isLoggedIn();
-    this.user$ = this.authService.getUser();
+    // this.user$ = this.authService.getUser();
   }
 
 ngOnInit(): void {

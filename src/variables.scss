@@ -1,6 +1,11 @@
 /****TYPOGRAPHY****/
 
-$font-family : 'Raleway', sans-serif;
+@font-face {
+    font-family: Comfortaa;
+    src: url(./assets/fonts/Comfortaa-VariableFont_wght.ttf);
+}
+
+$font-family : 'Comfortaa', sans-serif;
 // $h1-font-size:;
 // $h2-font-size:;
 // $h3-font-size:;
