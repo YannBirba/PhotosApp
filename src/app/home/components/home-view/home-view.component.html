@@ -1,7 +1,51 @@
 <!-- <h1>HOME</h1> -->
-<hr>
+<hr />
 <h1>Events</h1>
-<app-event-list *ngIf="(events$ | async) as eventsList;else noEventList" class="event-list" [events]="eventsList" (delete)="onDelete($event);" (update)="onUpdate($event)"></app-event-list>
-<ng-template #noEventList >
-    <p>No event-list</p>
+<app-event-list
+  *ngIf="events$ | async as eventsList; else noEventList"
+  class="event-list"
+  [events]="eventsList"
+  (delete)="onDelete($event)"
+  (update)="onUpdate($event)"
+></app-event-list>
+<ng-template #noEventList>
+  <p>No event-list</p>
 </ng-template>
+
+<form
+  [formGroup]="eventForm"
+  (ngSubmit)="onSubmit()"
+>
+<input type="hidden" formControlName="id">
+  <input
+    type="text"
+    formControlName="name"
+    placeholder="Nom"
+  />
+  <input
+    type="text"
+    formControlName="description"
+    placeholder="Description"
+  />
+  <input
+    type="text"
+    formControlName="location"
+    placeholder="Lieu"
+  />
+  <input
+    type="datetime"
+    formControlName="start_date"
+    placeholder="Date de début"
+  />
+  <input
+    type="datetime"
+    formControlName="end_date"
+    placeholder="Date de fin"
+  />
+  <input
+    type="number"
+    formControlName="year"
+    placeholder="Année"
+  />
+  <button type="submit" [disabled]="eventForm.invalid">Sauvegarder</button>
+</form>

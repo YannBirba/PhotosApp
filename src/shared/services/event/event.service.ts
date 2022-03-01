@@ -32,7 +32,7 @@ export class EventService {
     return response$;
   }
   update(event: Event): Observable<any> {
-    let response$: Observable<any> = this.http.post<Event>(
+    let response$: Observable<any> = this.http.put<Event>(
       environment.API_BASE_PATH + 'event/' + event.id,
       event
     );
