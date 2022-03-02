@@ -101,7 +101,7 @@ export class EventEffects {
   this.actions$.pipe(
     ofType(eventCreate.type),
     mergeMap(({ event }) =>
-      this.eventService.update(event).pipe(
+      this.eventService.create(event).pipe(
         map(() => eventCreateResponse({ event })),
         catchError((error) => {
           console.error(error);

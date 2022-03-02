@@ -23,13 +23,13 @@ export class HomeViewComponent {
 
   constructor(private store: Store<{ event: Event[] }>, private formBuilder: FormBuilder) {
     this.eventForm = this.formBuilder.group({
-      id: [0, [Validators.required]],
+      id: [''],
       name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       description: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(500)]],
-      start_date: [new Date(), [Validators.required]],
-      end_date: [new Date()],
+      start_date: ['', [Validators.required]],
+      end_date: [''],
       location: [''],
-      year: [0, [Validators.required]],
+      year: ['', [Validators.required]],
     });
   }
 
@@ -37,7 +37,7 @@ export class HomeViewComponent {
     this.store.dispatch(eventGetAll());
   }
 
-  onAdd(event: Event) {
+  create(event: Event) {
     this.store.dispatch(eventCreate({ event }));
   }
 
@@ -51,6 +51,11 @@ export class HomeViewComponent {
 
   onSubmit(): void {
     const event: Event = this.eventForm.value;
-    this.store.dispatch(eventUpdate({ event }));
+    if (!event.id) {
+      this.create(event);
+    }
+    else {
+      this.store.dispatch(eventUpdate({ event }));
+    } 
   }
 }

@@ -47,5 +47,6 @@
     formControlName="year"
     placeholder="Année"
   />
+  <button type="submit" (click)="eventForm.reset()">Clear</button>
   <button type="submit" [disabled]="eventForm.invalid">Sauvegarder</button>
 </form>
