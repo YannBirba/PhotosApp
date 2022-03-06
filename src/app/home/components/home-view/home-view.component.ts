@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { selectEvent, selectEvents } from 'src/shared/state/event/events.selector';
+import { selectEvents } from 'src/shared/state/event/events.selector';
 import { Store } from '@ngrx/store';
 import {
   eventCreate,
@@ -118,6 +118,5 @@ export class HomeViewComponent {
     const eventId: number = this.eventUpdateForm.value.id;
     this.event$ = new Observable<Event>();
     this.store.dispatch(eventGet({ eventId }));
-    this.event$ = this.store.select(selectEvent);
   }
 }
