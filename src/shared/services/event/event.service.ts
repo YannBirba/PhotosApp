@@ -18,31 +18,29 @@ export class EventService {
       )
       .pipe(map((events) => events.data || []));
   }
-  get(id: number) :Observable<Event> {
-    let response$: Observable<Event> = this.http.get<Event>(
+  get(id: number): Observable<Event> {
+    console.info('get event with id: ' + id);
+    return this.http.get<{ data: Event }>(
       environment.API_BASE_PATH + 'event/' + id
-    );
-    return response$;
+    )
+      .pipe(map((event) => event.data));
   }
   create(event: Event) :Observable<any> {
-    let response$: Observable<any> = this.http.post<Event>(
+    return this.http.post<Event>(
       environment.API_BASE_PATH + 'event',
       event
     );
-    return response$;
   }
   update(event: Event): Observable<any> {
-    let response$: Observable<any> = this.http.put<Event>(
+    return this.http.put<Event>(
       environment.API_BASE_PATH + 'event/' + event.id,
       event
     );
-    return response$;
   }
 
   delete(id: number): Observable<any> {
-    let response$: Observable<any> = this.http.delete<Event>(
+    return this.http.delete<Event>(
       environment.API_BASE_PATH + 'event/' + id
     );
-    return response$;
   }
 }

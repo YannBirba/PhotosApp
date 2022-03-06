@@ -9,44 +9,55 @@
   (update)="onUpdate($event)"
 ></app-event-list>
 <ng-template #noEventList>
-  <p>No event-list</p>
+  <p>Pas d'événement dans la liste</p>
 </ng-template>
 
-<form
-  [formGroup]="eventForm"
-  (ngSubmit)="onSubmit()"
->
-<input type="hidden" formControlName="id">
-  <input
-    type="text"
-    formControlName="name"
-    placeholder="Nom"
-  />
-  <input
-    type="text"
-    formControlName="description"
-    placeholder="Description"
-  />
-  <input
-    type="text"
-    formControlName="location"
-    placeholder="Lieu"
-  />
+<h2>Modifier un événement</h2>
+<form [formGroup]="eventUpdateForm" (ngSubmit)="onSubmitUpdate()">
+  <input type="number" formControlName="id" placeholder="Id" readonly />
+  <input type="text" formControlName="name" placeholder="Nom" />
+  <input type="text" formControlName="description" placeholder="Description" />
+  <input type="text" formControlName="location" placeholder="Lieu" />
   <input
     type="datetime"
     formControlName="start_date"
     placeholder="Date de début"
   />
+  <input type="datetime" formControlName="end_date" placeholder="Date de fin" />
+  <input type="number" formControlName="year" placeholder="Année" />
+  <button type="submit" [disabled]="eventUpdateForm.invalid">Modifier</button>
+</form>
+<button (click)="eventUpdateForm.reset()">Clear</button>
+
+<h2>Créer un événement</h2>
+<form [formGroup]="eventCreateForm" (ngSubmit)="onSubmitCreate()">
+  <input type="text" formControlName="name" placeholder="Nom" />
+  <input type="text" formControlName="description" placeholder="Description" />
+  <input type="text" formControlName="location" placeholder="Lieu" />
   <input
     type="datetime"
-    formControlName="end_date"
-    placeholder="Date de fin"
+    formControlName="start_date"
+    placeholder="Date de début"
   />
-  <input
-    type="number"
-    formControlName="year"
-    placeholder="Année"
-  />
-  <button type="submit" (click)="eventForm.reset()">Clear</button>
-  <button type="submit" [disabled]="eventForm.invalid">Sauvegarder</button>
+  <input type="datetime" formControlName="end_date" placeholder="Date de fin" />
+  <input type="number" formControlName="year" placeholder="Année" />
+  <button type="submit" [disabled]="eventCreateForm.invalid">Créer</button>
 </form>
+<button (click)="eventCreateForm.reset()">Clear</button>
+
+<main>
+  <form [formGroup]="eventGetOneForm" (ngSubmit)="onSubmitGetOne()">
+    <input type="number" formControlName="id" placeholder="Id"/>
+    <button type="submit" [disabled]="eventGetOneForm.invalid">Afficher</button>
+  </form>
+  <section>
+    <div class="event" *ngIf="event$ | async as event" >
+      <h3>{{event.name}}</h3>
+      <p>{{event.description}}</p>
+      <p>{{event.location}}</p>
+      <p>{{event.start_date | date : 'dd/MM/yyyy'}}</p>
+      <p>{{event.end_date | date : 'dd/MM/yyyy'}}</p>
+      <p>{{event.year}}</p>
+    </div>
+  </section>
+</main>
