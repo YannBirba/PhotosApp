@@ -5,6 +5,6 @@ export interface Event {
     description?: string | null | undefined;
     start_date: Date;
     end_date?: Date | null | undefined;
-    location?: string | null | undefined;
+    location: string;
     year: number;
 }

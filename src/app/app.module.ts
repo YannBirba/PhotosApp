@@ -15,9 +15,10 @@ import { eventsReducer } from 'src/shared/state/event/events.reducer';
 import { environment } from 'src/environments/environment';
 import { EventEffects } from 'src/shared/state/event/events.effects';
 import { EffectsModule } from '@ngrx/effects';
+import { ModalComponent } from './components/modal/modal.component';
 
 @NgModule({
-  declarations: [AppComponent, MenuComponent, FooterComponent],
+  declarations: [AppComponent, MenuComponent, FooterComponent, ModalComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

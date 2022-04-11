@@ -5,13 +5,11 @@ import { Store } from '@ngrx/store';
 import {
   eventCreate,
   eventDelete,
-  eventGet,
   eventGetAll,
   eventUpdate,
 } from 'src/shared/state/event/events.actions';
 import { Event } from 'src/models/event.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
 @Component({
   selector: 'app-home-view',
   templateUrl: './home-view.component.html',
@@ -25,6 +23,8 @@ export class HomeViewComponent {
   public eventCreateForm: FormGroup;
   public eventGetOneForm: FormGroup;
 
+  public updateEvent: boolean = false;
+  public createEvent: boolean = false;
 
   constructor(
     private store: Store<{ event: Event[] }>,
@@ -52,7 +52,7 @@ export class HomeViewComponent {
       ],
       start_date: [null, [Validators.required]],
       end_date: [null],
-      location: [null],
+      location: ['', [Validators.required]],
       year: [null, [Validators.required]],
     });
     this.eventCreateForm = this.formBuilder.group({
@@ -74,7 +74,7 @@ export class HomeViewComponent {
       ],
       start_date: [null, [Validators.required]],
       end_date: [null],
-      location: [null],
+      location: ['', [Validators.required]],
       year: [null, [Validators.required]],
     });
     this.eventGetOneForm = this.formBuilder.group({
@@ -82,41 +82,60 @@ export class HomeViewComponent {
     });
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.getAllEvent();
   }
 
-  getAllEvent() {
-    this.events$ = new Observable<readonly Event[]>();
-    this.store.dispatch(eventGetAll());
-    this.events$ = this.store.select(selectEvents);
+  getAllEvent(refresh: boolean = false): void {
+    if (refresh) {
+      this.events$ = new Observable<readonly Event[]>();
+      this.store.dispatch(eventGetAll({ clear: true }));
+      this.store.dispatch(eventGetAll({ clear: false }));
+      this.events$ = this.store.select(selectEvents);
+    } else {
+      this.events$ = new Observable<readonly Event[]>();
+      this.store.dispatch(eventGetAll({ clear: false }));
+      this.events$ = this.store.select(selectEvents);
+    }
   }
 
-  create(event: Event) {
+  create(event: Event): void {
     this.store.dispatch(eventCreate({ event }));
-    this.getAllEvent();
   }
 
-  onDelete(eventId: number) {
+  onDelete(eventId: number): void {
     this.store.dispatch(eventDelete({ eventId }));
+    this.eventUpdateForm.reset();
   }
 
-  onUpdate(event: Event) {
+  onUpdate(event: Event): void {
     this.eventUpdateForm.patchValue(event);
+    this.updateEvent = true;
   }
 
   onSubmitCreate(): void {
     const event: Event = this.eventCreateForm.value;
     this.create(event);
+    this.getAllEvent(true);
     this.getAllEvent();
   }
   onSubmitUpdate(): void {
     const event: Event = this.eventUpdateForm.value;
     this.store.dispatch(eventUpdate({ event }));
   }
-  onSubmitGetOne(): void {
-    const eventId: number = this.eventUpdateForm.value.id;
-    this.event$ = new Observable<Event>();
-    this.store.dispatch(eventGet({ eventId }));
+  onCloning(): void {
+    this.eventCreateForm.patchValue(this.eventUpdateForm.value);
+  }
+  onClear(): void {
+    this.getAllEvent(true);
+  }
+  onCreate(): void {
+    this.createEvent = true;
+  }
+  onUpdateClose(): void {
+    this.updateEvent = false;
+  }
+  onCreateClose(): void {
+    this.createEvent = false;
   }
 }

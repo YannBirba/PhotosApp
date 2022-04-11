@@ -28,8 +28,8 @@ export class EventEffects {
   eventGetAll$ = createEffect(() =>
     this.actions$.pipe(
       ofType(eventGetAll.type),
-      mergeMap(() =>
-        this.eventService.getAll().pipe(
+      mergeMap(({ clear }) =>
+        this.eventService.getAll(clear).pipe(
           map((events) => eventGetAllResponse({ events })),
           catchError((error) => {
             console.error(error);
@@ -44,21 +44,21 @@ export class EventEffects {
   );
 
   eventGet$ = createEffect(() =>
-  this.actions$.pipe(
-    ofType(eventGet.type),
-    mergeMap(({ eventId }) =>
-      this.eventService.get(eventId).pipe(
-        map(() => eventGetResponse({ eventId })),
-        catchError((error) => {
-          console.error(error);
-          return of(eventGetError());
-        }),
-        finalize(() => {
-          console.info('eventGet$ effect complete');
-        })
+    this.actions$.pipe(
+      ofType(eventGet.type),
+      mergeMap(({ eventId }) =>
+        this.eventService.get(eventId).pipe(
+          map(() => eventGetResponse({ eventId })),
+          catchError((error) => {
+            console.error(error);
+            return of(eventGetError());
+          }),
+          finalize(() => {
+            console.info('eventGet$ effect complete');
+          })
+        )
       )
     )
-  )
   );
 
   eventDelete$ = createEffect(() =>
@@ -78,40 +78,40 @@ export class EventEffects {
       )
     )
   );
-  
+
   eventUpdate$ = createEffect(() =>
-  this.actions$.pipe(
-    ofType(eventUpdate.type),
-    mergeMap(({ event }) =>
-      this.eventService.update(event).pipe(
-        map(() => eventUpdateResponse({ event })),
-        catchError((error) => {
-          console.error(error);
-          return of(eventUpdateError());
-        }),
-        finalize(() => {
-          console.info('eventUpdate$ effect complete');
-        })
+    this.actions$.pipe(
+      ofType(eventUpdate.type),
+      mergeMap(({ event }) =>
+        this.eventService.update(event).pipe(
+          map(() => eventUpdateResponse({ event })),
+          catchError((error) => {
+            console.error(error);
+            return of(eventUpdateError());
+          }),
+          finalize(() => {
+            console.info('eventUpdate$ effect complete');
+          })
+        )
       )
     )
-  )
   );
-  
+
   eventCreate$ = createEffect(() =>
-  this.actions$.pipe(
-    ofType(eventCreate.type),
-    mergeMap(({ event }) =>
-      this.eventService.create(event).pipe(
-        map(() => eventCreateResponse({ event })),
-        catchError((error) => {
-          console.error(error);
-          return of(eventCreateError());
-        }),
-        finalize(() => {
-          console.info('eventCreate$ effect complete');
-        })
+    this.actions$.pipe(
+      ofType(eventCreate.type),
+      mergeMap(({ event }) =>
+        this.eventService.create(event).pipe(
+          map(() => eventCreateResponse({ event })),
+          catchError((error) => {
+            console.error(error);
+            return of(eventCreateError());
+          }),
+          finalize(() => {
+            console.info('eventCreate$ effect complete');
+          })
+        )
       )
     )
-  )
-);
+  );
 }
