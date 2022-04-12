@@ -15,10 +15,14 @@ import { eventsReducer } from 'src/shared/state/event/events.reducer';
 import { environment } from 'src/environments/environment';
 import { EventEffects } from 'src/shared/state/event/events.effects';
 import { EffectsModule } from '@ngrx/effects';
-import { ModalComponent } from './components/modal/modal.component';
+import { ToastInterceptorService } from 'src/shared/services/toastInterceptor/toast-interceptor.service';
 
 @NgModule({
-  declarations: [AppComponent, MenuComponent, FooterComponent, ModalComponent],
+  declarations: [
+    AppComponent,
+    MenuComponent,
+    FooterComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -41,6 +45,11 @@ import { ModalComponent } from './components/modal/modal.component';
       multi: true,
     },
     AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ToastInterceptorService,
+      multi: true,
+    }
   ],
   bootstrap: [AppComponent],
 })

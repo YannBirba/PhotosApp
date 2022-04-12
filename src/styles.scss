@@ -86,7 +86,7 @@ html {
   background: rgba(0, 0, 0, 0.5);
   .form {
     position: relative;
-    border-radius:0.5rem;
+    border-radius: 0.5rem;
     border: 1px solid #fff;
     background: #212121;
     padding: 3rem 2rem;
@@ -107,13 +107,13 @@ html {
         gap: 0.5rem;
         flex-direction: column;
         width: 100%;
-        > *{
+        > * {
           width: 100%;
           text-align: left;
         }
+      }
     }
-    }
-    .close-modal{
+    .close-modal {
       position: absolute;
       top: 0.5rem;
       right: 1rem;
