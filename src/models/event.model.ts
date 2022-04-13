@@ -1,12 +1,17 @@
+import { Group } from "./group.model";
 import { Image } from "./image.model";
 
 export interface Event {
     id?: number;
-    name: string;
     image?: Image | null | undefined;
+    name: string;
     description?: string | null | undefined;
-    start_date: Date;
-    end_date?: Date | null | undefined;
     location: string;
     year: number;
+    start_date: Date;
+    end_date?: Date | null | undefined;
+    created_at?: Date | null | undefined;
+    updated_at?: Date | null | undefined;
+    groups?: Group[];
+    images?: Image[];
 }

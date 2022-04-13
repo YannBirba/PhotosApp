@@ -1,11 +1,13 @@
+import { Event } from "./event.model";
+
 export interface Image {
     id?: number,
-    event_id: number,
+    event: Event,
     path: string,
     name: string,
     extension: string,
     alt: string,
     title: string,
-    created_at: Date,
-    updated_at: Date
+    created_at?: Date | null | undefined;
+    updated_at?: Date | null | undefined;
 }

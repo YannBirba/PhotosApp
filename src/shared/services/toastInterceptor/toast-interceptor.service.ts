@@ -22,7 +22,7 @@ export class ToastInterceptorService implements HttpInterceptor {
       tap((response) => {
         if (response instanceof HttpResponse) {
           if (response.body && response.body.message) {
-            console.log(response.body.message);
+            console.info(response.body.message);
           }
         }
       }),
