@@ -34,12 +34,21 @@ export class AuthService {
     );
     return response$;
   }
-  getUser(): Observable<User> {
+  getCurrentUser(): Observable<User> {
     let response$: Observable<any> = this.http.get<User>(
       environment.API_BASE_PATH + 'user'
     );
     return response$;
   }
+
+  updateCurrentUser(user: User): Observable<any> {
+    let response$: Observable<any> = this.http.put(
+      environment.API_BASE_PATH + 'user/updatecurrent',
+      user
+    );
+    return response$;
+  }
+
   // isLoggedIn(): Observable<Boolean> {
   //   return this.isLoggedIn$;
   // }

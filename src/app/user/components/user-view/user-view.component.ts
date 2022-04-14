@@ -16,7 +16,7 @@ export class UserViewComponent implements OnInit {
   }
 
 ngOnInit(): void {
-  this.user$ = this.authService.getUser();
+  this.user$ = this.authService.getCurrentUser();
   // this.userAuthState$ = this.authService.isLoggedIn();
   }
 }

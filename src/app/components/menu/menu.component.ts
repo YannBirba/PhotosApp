@@ -14,7 +14,7 @@ export class MenuComponent implements OnInit {
   public user$: Observable<User>;
   constructor(private authService: AuthService, private router: Router) {
     // this.userAuthState$ = this.authService.isLoggedIn();
-    this.user$ = this.authService.getUser();
+    this.user$ = this.authService.getCurrentUser();
   }
   logout(): void {
     const response$: Observable<any> = this.authService.logout();
@@ -26,7 +26,7 @@ export class MenuComponent implements OnInit {
     this.router.navigate(['/login']);
   }
   ngOnInit(): void {
-    this.user$ = this.authService.getUser();
+    this.user$ = this.authService.getCurrentUser();
     // this.userAuthState$ = this.authService.isLoggedIn();
   }
 }
