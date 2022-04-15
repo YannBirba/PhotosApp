@@ -14,10 +14,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-event-admin-view',
   templateUrl: './event-admin-view.component.html',
-  styleUrls: ['./event-admin-view.component.scss']
+  styleUrls: ['./event-admin-view.component.scss'],
 })
 export class EventAdminViewComponent implements OnInit {
-
   public events$: Observable<readonly Event[]>;
   public event$: Observable<Event>;
 
@@ -29,110 +28,109 @@ export class EventAdminViewComponent implements OnInit {
     private store: Store<{ event: Event[] }>,
     private formBuilder: FormBuilder
   ) {
-
-  this.events$ = new Observable<readonly Event[]>();
-  this.event$ = new Observable<Event>();
-  this.eventUpdateForm = this.formBuilder.group({
-    id: [null],
-    name: [
-      null,
-      [
-        Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(50),
-      ],
-    ],
-    description: [
-      null,
-      [
-        Validators.required,
-        Validators.minLength(10),
-        Validators.maxLength(500),
-      ],
-    ],
-    start_date: [null, [Validators.required]],
-    end_date: [null],
-    location: ['', [Validators.required]],
-    year: [null, [Validators.required]],
-  });
-  this.eventCreateForm = this.formBuilder.group({
-    name: [
-      null,
-      [
-        Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(50),
-      ],
-    ],
-    description: [
-      null,
-      [
-        Validators.required,
-        Validators.minLength(10),
-        Validators.maxLength(500),
-      ],
-    ],
-    start_date: [null, [Validators.required]],
-    end_date: [null],
-    location: ['', [Validators.required]],
-    year: [null, [Validators.required]],
-  });
-  this.eventGetOneForm = this.formBuilder.group({
-    id: [null],
-  });
-}
-
-ngOnInit(): void {
-  this.getAllEvent();
-}
-
-getAllEvent(refresh: boolean = false): void {
-  if (refresh) {
     this.events$ = new Observable<readonly Event[]>();
-    this.store.dispatch(eventGetAll({ clear: true }));
-    this.store.dispatch(eventGetAll({ clear: false }));
-    this.events$ = this.store.select(selectEvents);
-  } else {
-    this.events$ = new Observable<readonly Event[]>();
-    this.store.dispatch(eventGetAll({ clear: false }));
-    this.events$ = this.store.select(selectEvents);
+    this.event$ = new Observable<Event>();
+    this.eventUpdateForm = this.formBuilder.group({
+      id: [null],
+      name: [
+        null,
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(50),
+        ],
+      ],
+      description: [
+        null,
+        [
+          Validators.required,
+          Validators.minLength(10),
+          Validators.maxLength(500),
+        ],
+      ],
+      start_date: [null, [Validators.required]],
+      end_date: [null],
+      location: ['', [Validators.required]],
+      year: [null, [Validators.required]],
+    });
+    this.eventCreateForm = this.formBuilder.group({
+      name: [
+        null,
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(50),
+        ],
+      ],
+      description: [
+        null,
+        [
+          Validators.required,
+          Validators.minLength(10),
+          Validators.maxLength(500),
+        ],
+      ],
+      start_date: [null, [Validators.required]],
+      end_date: [null],
+      location: ['', [Validators.required]],
+      year: [null, [Validators.required]],
+    });
+    this.eventGetOneForm = this.formBuilder.group({
+      id: [null],
+    });
   }
-}
 
-create(event: Event): void {
-  this.store.dispatch(eventCreate({ event }));
-}
+  ngOnInit(): void {
+    this.getAllEvent();
+  }
 
-onDelete(eventId: number): void {
-  this.store.dispatch(eventDelete({ eventId }));
-  this.eventUpdateForm.reset();
-}
+  getAllEvent(refresh: boolean = false): void {
+    if (refresh) {
+      this.events$ = new Observable<readonly Event[]>();
+      this.store.dispatch(eventGetAll({ clear: true }));
+      this.store.dispatch(eventGetAll({ clear: false }));
+      this.events$ = this.store.select(selectEvents);
+    } else {
+      this.events$ = new Observable<readonly Event[]>();
+      this.store.dispatch(eventGetAll({ clear: false }));
+      this.events$ = this.store.select(selectEvents);
+    }
+  }
 
-onUpdate(event: Event, dialog: any): void {
-  this.eventUpdateForm.patchValue(event);
-  this.openModal(dialog);
-}
+  create(event: Event): void {
+    this.store.dispatch(eventCreate({ event }));
+  }
 
-onSubmitCreate(): void {
-  const event: Event = this.eventCreateForm.value;
-  this.create(event);
-  this.getAllEvent(true);
-  this.getAllEvent();
-}
-onSubmitUpdate(): void {
-  const event: Event = this.eventUpdateForm.value;
-  this.store.dispatch(eventUpdate({ event }));
-}
-onCloning(): void {
-  this.eventCreateForm.patchValue(this.eventUpdateForm.value);
-}
-onClear(): void {
-  this.getAllEvent(true);
-}
-openModal(dialog: any): void {
-  dialog.showModal();
-}
-closeModal(dialog: any): void {
-  dialog.close();
-}
+  onDelete(eventId: number): void {
+    this.store.dispatch(eventDelete({ eventId }));
+    this.eventUpdateForm.reset();
+  }
+
+  onUpdate(event: Event, dialog: any): void {
+    this.eventUpdateForm.patchValue(event);
+    this.openModal(dialog);
+  }
+
+  onSubmitCreate(): void {
+    const event: Event = this.eventCreateForm.value;
+    this.create(event);
+    this.getAllEvent(true);
+    this.getAllEvent();
+  }
+  onSubmitUpdate(): void {
+    const event: Event = this.eventUpdateForm.value;
+    this.store.dispatch(eventUpdate({ event }));
+  }
+  onCloning(): void {
+    this.eventCreateForm.patchValue(this.eventUpdateForm.value);
+  }
+  onClear(): void {
+    this.getAllEvent(true);
+  }
+  openModal(dialog: any): void {
+    dialog.showModal();
+  }
+  closeModal(dialog: any): void {
+    dialog.close();
+  }
 }

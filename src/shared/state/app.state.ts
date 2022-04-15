@@ -5,8 +5,8 @@ import { Event } from '../../models/event.model';
 
 export interface AppState {
   events: ReadonlyArray<Event>;
-  groups: ReadonlyArray<Group>;
-  images: ReadonlyArray<Image>;
-  users: ReadonlyArray<User>;
+  // groups: ReadonlyArray<Group>;
+  // images: ReadonlyArray<Image>;
+  // users: ReadonlyArray<User>;
   currentUser : User;
 }

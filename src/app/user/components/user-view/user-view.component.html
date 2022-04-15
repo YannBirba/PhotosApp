@@ -1,9 +1,32 @@
-<div *ngIf="(user$ | async) as user; else loading">
-<p>Nom : {{user.name}}</p>
-<p>Mail : {{user.email}}</p>
-<p>Is admin : {{user.is_admin}}</p>
-</div>
+<app-user-profile *ngIf="(currentUser$ | async) as currentUser; else loading" [email]="currentUser.email"
+  [groupName]="currentUser.group.name" [is_admin]="currentUser.is_admin" [name]="currentUser.name">
+</app-user-profile>
 <ng-template #loading>
-    <p>Chargement en cours ...</p>
+  <p>Chargement en cours ...</p>
 </ng-template>
-<!-- <p *ngIf="userAuthState$ | async as userAuthState" >Is loggedIn : {{ userAuthState.is_logged_in }}</p> -->
+<button *ngIf="(currentUser$ | async) as currentUser;" (click)="openModal(modal, currentUser)">Mettre à jour le profil</button>
+
+
+<dialog #modal class="dialog">
+  <form action="dialog">
+    <button class="close-modal" type="button" (click)="closeModal(modal)">x</button>
+  </form>
+  <div class="form">
+    <h2>Modifier mon profil</h2>
+    <form [formGroup]="currentUserUpdateForm" (ngSubmit)="onSubmitUpdate()">
+      <div class="control-group">
+        <label for="nameUpdate">Nom</label>
+        <input type="text" formControlName="name" placeholder="Nom" id="nameUpdate" />
+      </div>
+      <div class="control-group">
+        <label for="emailUpdate">Email</label>
+        <input type="email" formControlName="email" placeholder="Email" id="emailUpdate" />
+      </div>
+
+      <div class="btn-group">
+        <button type="submit" (click)="closeModal(modal)" [disabled]="currentUserUpdateForm.invalid">Enregistrer</button>
+        <button (click)="currentUserUpdateForm.reset()">Réinitialiser</button>
+      </div>
+    </form>
+  </div>
+</dialog>

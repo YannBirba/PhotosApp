@@ -7,19 +7,16 @@ import { RegisterViewComponent } from './components/register-view/register-view.
 import { ForgotPasswordViewComponent } from './components/forgot-password-view/forgot-password-view.component';
 import { UserViewComponent } from './components/user-view/user-view.component';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
     LoginViewComponent,
     RegisterViewComponent,
     ForgotPasswordViewComponent,
-    UserViewComponent
+    UserViewComponent,
+    UserProfileComponent,
   ],
-  imports: [
-    CommonModule,
-    UserRoutingModule,
-    ReactiveFormsModule,
-  ]
+  imports: [CommonModule, UserRoutingModule, ReactiveFormsModule],
 })
-export class UserModule { }
+export class UserModule {}

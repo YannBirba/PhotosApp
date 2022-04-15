@@ -1,14 +1,14 @@
-<!-- <div *ngIf="(userAuthState$ | async)?.is_logged_in" id="app-menu-container"> -->
-    <div class="container">
-<nav id="app-menu">
+<div class="container">
+  <nav id="app-menu">
     <ul id="app-menu-list">
       <li id="app-menu-item-01" class="app-menu-item"><a class="app-menu-link" routerLink="">Accueil</a></li>
       <li id="app-menu-item-04" class="app-menu-item"><a class="app-menu-link" routerLink="/user">Mon compte</a></li>
-      <li id="app-menu-item-05" class="app-menu-item"><a class="app-menu-link" routerLink="/user/login">Se connecter</a></li>
-      <li id="app-menu-item-06" class="app-menu-item"><a class="app-menu-link" routerLink="/admin">Administration</a></li>
-      <!-- <li *ngIf="(user$ | async)?.is_admin" id="app-menu-item-06" class="app-menu-item"><a class="app-menu-link" routerLink="/admin">Administration</a></li> -->
-      <li id="app-menu-item-07" class="app-menu-item"><button (click)="logout()" routerLink="/user/login">Se déconnecter</button></li>
+      <li id="app-menu-item-05" class="app-menu-item"><a class="app-menu-link" routerLink="/user/login">Se
+          connecter</a></li>
+      <li *ngIf="(currentUser$ | async)?.is_admin" id="app-menu-item-06" class="app-menu-item"><a class="app-menu-link"
+          routerLink="/admin">Administration</a></li>
+      <li id="app-menu-item-07" class="app-menu-item"><a class="app-menu-link" (click)="logout()"
+          routerLink="/user/login">Se déconnecter</a></li>
     </ul>
-</nav>
+  </nav>
 </div>
-<!-- </div> -->

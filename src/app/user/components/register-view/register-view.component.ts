@@ -1,45 +1,38 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { Register } from 'src/models/auth.model';
+import { User } from 'src/models/user.model';
 import { confirmationValidator } from 'src/shared/helpers/confirmation.validator';
-import { AuthService } from 'src/shared/services/auth/auth.service';
+import { register } from 'src/shared/state/auth/auth.actions';
 
 @Component({
   selector: 'app-register-view',
   templateUrl: './register-view.component.html',
-  styleUrls: ['./register-view.component.scss']
+  styleUrls: ['./register-view.component.scss'],
 })
-export class RegisterViewComponent implements OnDestroy{
+export class RegisterViewComponent{
   public registerForm: FormGroup;
-  private subscription: any;
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthService,
+    private store: Store<{ currentUser: User }>
   ) {
-    this.registerForm = this.formBuilder.group({
-      name: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      password_confirmation: ['', [Validators.required, Validators.minLength(6)]],
-      is_admin: [false]
-    },
-      { validator: [confirmationValidator('password', 'password_confirmation')] }
+    this.registerForm = this.formBuilder.group(
+      {
+        name: ['', [Validators.required]],
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', [Validators.required, Validators.minLength(4)]],
+        // password_confirmation: ['', [Validators.required, Validators.minLength(6)]],
+        group_id: [null, [Validators.required]],
+        is_admin: [false],
+      }
+      // { validator: [confirmationValidator('password', 'password_confirmation')] }
     );
-  }
-
-  ngOnDestroy(): void {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
   }
 
   onSubmit(): void {
-    const formData: any = this.registerForm.value;
-    const response$: Observable<any> = this.authService.register(formData);
-    this.subscription = response$.subscribe(
-      (response) => console.log(response),
-      (responseError) => console.error(responseError),
-      () => console.log('DONE!')
-    );
+    const formData: Register = this.registerForm.value;
+    this.store.dispatch(register({ register: formData }));
   }
 }
