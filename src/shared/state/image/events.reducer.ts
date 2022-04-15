@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { eventUpdateResponse, eventGetAllResponse, eventGetResponse, eventCreateResponse, eventDeleteResponse } from './events.actions';
-import { Event } from '../../../models/event.model';
+import { Event } from '../../src/models/event.model';
 
 export const initialState: ReadonlyArray<Event> = Array<Event>();
 

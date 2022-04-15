@@ -1,44 +1,34 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { Login } from 'src/models/auth.model';
+import { User } from 'src/models/user.model';
 import { AuthService } from 'src/shared/services/auth/auth.service';
+import { login } from 'src/shared/state/auth/auth.actions';
 
 @Component({
   selector: 'app-login-view',
   templateUrl: './login-view.component.html',
   styleUrls: ['./login-view.component.scss'],
 })
-export class LoginViewComponent {
+export class LoginViewComponent{
   public loginForm: FormGroup;
-  private subscription?: Subscription;
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthService,
-    private router : Router
+    private store: Store<{ currentUser: User }>
   ) {
     this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
+      email: [
+        'admin@admin.fr',
+        [Validators.required, Validators.email, Validators.minLength(3)],
+      ],
+      password: ['admin', [Validators.required, Validators.minLength(4)]],
     });
   }
-
-  ngOnDestroy(): void {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
-  }
   onSubmit(): void {
-    const formData: any = this.loginForm.value;
-    const response$: Observable<any> = this.authService.login(formData);
-    this.subscription = response$.subscribe(
-      (response) => {
-        alert(response.message);
-        console.log(response);
-        this.router.navigate(['']);
-      },
-      (responseError) => console.error(responseError),
-      () => console.log('DONE!')
-    );
+    const formData: Login = this.loginForm.value;
+    this.store.dispatch(login({ login: formData }));
   }
 }

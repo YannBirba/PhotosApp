@@ -1,3 +1,4 @@
-<app-menu id="menu"></app-menu>
+
+<app-menu *ngIf="(currentUser$ | async)?.email" id="menu"></app-menu>
 <router-outlet></router-outlet>
-<!-- <app-footer id="footer"></app-footer> -->
+<app-footer *ngIf="(currentUser$ | async)?.email" id="footer"></app-footer>

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { map, mergeMap, catchError, finalize } from 'rxjs/operators';
-import { EventService } from '../../services/event/event.service';
+import { EventService } from '../../src/shared/services/event/event.service';
 import {
   eventDelete,
   eventGetAll,

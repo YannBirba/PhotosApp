@@ -1,22 +1,54 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { User } from 'src/models/user.model';
-import { AuthService } from 'src/shared/services/auth/auth.service';
+import { currentUser, currentUserUpdate } from 'src/shared/state/auth/auth.actions';
+import { selectCurrentUser } from 'src/shared/state/auth/auth.selector';
 
 @Component({
   selector: 'app-user-view',
   templateUrl: './user-view.component.html',
-  styleUrls: ['./user-view.component.scss']
+  styleUrls: ['./user-view.component.scss'],
 })
 export class UserViewComponent implements OnInit {
-  public user$!: Observable<User>;
-  constructor(private authService: AuthService) {
-    // this.userAuthState$ = this.authService.isLoggedIn();
-    // this.user$ = this.authService.getUser();
+  public currentUser$: Observable<User> | null = null;
+  public currentUserUpdateForm: FormGroup;
+
+  constructor(
+    private store: Store<{ currentUser: User }>,
+    private formBuilder: FormBuilder
+  ) {
+    this.currentUserUpdateForm = this.formBuilder.group({
+      name: [
+        null,
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(50),
+        ],
+      ],
+      email: [
+        null,
+        [Validators.required, Validators.email],
+      ],
+      group_id: [null],
+    });
   }
 
-ngOnInit(): void {
-  this.user$ = this.authService.getCurrentUser();
-  // this.userAuthState$ = this.authService.isLoggedIn();
+  ngOnInit(): void {
+    this.store.dispatch(currentUser());
+    this.currentUser$ = this.store.select(selectCurrentUser);
+  }
+  openModal(dialog: any, currentUser : User): void {
+    dialog.showModal();
+    this.currentUserUpdateForm.patchValue(currentUser);
+  }
+  closeModal(dialog: any): void {
+    dialog.close();
+  }
+  onSubmitUpdate(): void {
+    const currentUser: User = this.currentUserUpdateForm.value;
+    this.store.dispatch(currentUserUpdate({ currentUser }));
   }
 }

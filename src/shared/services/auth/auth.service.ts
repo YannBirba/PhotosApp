@@ -3,53 +3,38 @@ import { Observable, Subject } from 'rxjs';
 import { User } from 'src/models/user.model';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { Login, Register } from 'src/models/auth.model';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  // private isLoggedIn$ = new Observable<boolean>();
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient) {}
+
+  login(login: Login): Observable<any> {
+    return this.http.post<Login>(environment.API_BASE_PATH + 'login', login);
   }
 
-  login(formData: any): Observable<any> {
-    let response$: Observable<any> = this.http.post(
-      environment.API_BASE_PATH + 'login',
+  register(formData: Register): Observable<any> {
+    return this.http.post<Register>(
+      environment.API_BASE_PATH + 'register',
       formData
     );
-    // this.isLoggedIn$.next(true);
-    return response$;
-  }
-  register(formData: any): Observable<any> {
-    let response$: Observable<any> = this.http.post(
-      environment.API_BASE_PATH + 'register',
-      formData,
-    );
-    return response$;
   }
   logout(): Observable<any> {
-    let response$: Observable<any> = this.http.post(
-      environment.API_BASE_PATH + 'logout',
-      {}
-    );
-    return response$;
+    return this.http.post(environment.API_BASE_PATH + 'logout', {});
   }
   getCurrentUser(): Observable<User> {
-    let response$: Observable<any> = this.http.get<User>(
-      environment.API_BASE_PATH + 'user'
-    );
-    return response$;
+    return this.http
+      .get<{ data: User }>(environment.API_BASE_PATH + 'user')
+      .pipe(map((currentUser) => currentUser.data));
   }
 
   updateCurrentUser(user: User): Observable<any> {
-    let response$: Observable<any> = this.http.put(
+    return this.http.put<User>(
       environment.API_BASE_PATH + 'user/updatecurrent',
       user
     );
-    return response$;
   }
-
-  // isLoggedIn(): Observable<Boolean> {
-  //   return this.isLoggedIn$;
-  // }
 }

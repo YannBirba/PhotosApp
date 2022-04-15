@@ -1,0 +1,8 @@
+<div *ngIf="name; else loading">
+  <p>Nom : {{name}}</p>
+  <p>Email : {{email}}</p>
+  <p *ngIf="is_admin">Vous êtes administateur</p>
+  <p *ngIf="!is_admin">Vous n'êtes pas administateur</p>
+  <p>Nom du groupe : {{groupName}}</p>
+</div>
+<ng-template #loading>Chargement ...</ng-template>

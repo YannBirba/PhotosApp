@@ -16,6 +16,12 @@ import { environment } from 'src/environments/environment';
 import { EventEffects } from 'src/shared/state/event/events.effects';
 import { EffectsModule } from '@ngrx/effects';
 import { ToastInterceptorService } from 'src/shared/services/toastInterceptor/toast-interceptor.service';
+import { EventService } from 'src/shared/services/event/event.service';
+import { GroupService } from 'src/shared/services/group/group.service';
+import { ImageService } from 'src/shared/services/image/image.service';
+import { UserService } from 'src/shared/services/user/user.service';
+import { AuthEffects } from 'src/shared/state/auth/auth.effects';
+import { authReducer } from 'src/shared/state/auth/auth.reducer';
 
 @NgModule({
   declarations: [
@@ -28,8 +34,8 @@ import { ToastInterceptorService } from 'src/shared/services/toastInterceptor/to
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    StoreModule.forRoot({ events: eventsReducer }),
-    EffectsModule.forRoot([EventEffects]),
+    StoreModule.forRoot({ events: eventsReducer, currentUser: authReducer }),
+    EffectsModule.forRoot([EventEffects, AuthEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
@@ -37,8 +43,11 @@ import { ToastInterceptorService } from 'src/shared/services/toastInterceptor/to
     }),
   ],
   providers: [
-    HttpClientModule,
     AuthService,
+    EventService,
+    GroupService,
+    ImageService,
+    UserService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: CookieInterceptorService,

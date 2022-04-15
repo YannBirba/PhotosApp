@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Event } from '../../../models/event.model';
+import { Event } from '../../src/models/event.model';
 
 export const eventGetAll = createAction('[Event] {APP} Get all (request)',
 props<{ clear: boolean }>());

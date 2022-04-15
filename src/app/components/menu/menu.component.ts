@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { User } from 'src/models/user.model';
-import { AuthService } from 'src/shared/services/auth/auth.service';
+import { currentUser, logout } from 'src/shared/state/auth/auth.actions';
+import { selectCurrentUser } from 'src/shared/state/auth/auth.selector';
 
 @Component({
   selector: 'app-menu',
@@ -10,23 +11,15 @@ import { AuthService } from 'src/shared/services/auth/auth.service';
   styleUrls: ['./menu.component.scss'],
 })
 export class MenuComponent implements OnInit {
-  private subscription: any;
-  public user$: Observable<User>;
-  constructor(private authService: AuthService, private router: Router) {
-    // this.userAuthState$ = this.authService.isLoggedIn();
-    this.user$ = this.authService.getCurrentUser();
-  }
+  public currentUser$: Observable<User> | null = null;
+
+  constructor(private store: Store<{ currentUser: User }>) {}
   logout(): void {
-    const response$: Observable<any> = this.authService.logout();
-    this.subscription = response$.subscribe(
-      (response) => console.log(response),
-      (responseError) => console.error(responseError),
-      () => console.log('DONE!')
-    );
-    this.router.navigate(['/login']);
+    this.store.dispatch(logout());
   }
+
   ngOnInit(): void {
-    this.user$ = this.authService.getCurrentUser();
-    // this.userAuthState$ = this.authService.isLoggedIn();
+    this.store.dispatch(currentUser());
+    this.currentUser$ = this.store.select(selectCurrentUser);
   }
 }
