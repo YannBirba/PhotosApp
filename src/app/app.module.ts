@@ -22,6 +22,12 @@ import { ImageService } from 'src/shared/services/image/image.service';
 import { UserService } from 'src/shared/services/user/user.service';
 import { AuthEffects } from 'src/shared/state/auth/auth.effects';
 import { authReducer } from 'src/shared/state/auth/auth.reducer';
+import { GroupEffects } from 'src/shared/state/group/groups.effects';
+import { groupsReducer } from 'src/shared/state/group/groups.reducer';
+import { ImageEffects } from 'src/shared/state/image/images.effects';
+import { imagesReducer } from 'src/shared/state/image/images.reducer';
+import { UserEffects } from 'src/shared/state/user/users.effects';
+import { usersReducer } from 'src/shared/state/user/users.reducer';
 
 @NgModule({
   declarations: [
@@ -34,8 +40,8 @@ import { authReducer } from 'src/shared/state/auth/auth.reducer';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    StoreModule.forRoot({ events: eventsReducer, currentUser: authReducer }),
-    EffectsModule.forRoot([EventEffects, AuthEffects]),
+    StoreModule.forRoot({ events: eventsReducer, currentUser: authReducer, groups: groupsReducer, images: imagesReducer, users: usersReducer }),
+    EffectsModule.forRoot([EventEffects, AuthEffects, GroupEffects, ImageEffects, UserEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
