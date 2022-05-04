@@ -1,7 +1,13 @@
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-  <input type="email" formControlName="email" placeholder="email">
-  <input type="password" formControlName="password" placeholder="password">
-  <button type="submit" [disabled]="loginForm.invalid">Soumettre</button>
+
+  <div class="control-group">
+    <label for="email">Email</label>
+    <input type="text" formControlName="email" placeholder="john@doe.com" id="email" autofocus autocomplete="email" /> </div>
+  <div class="control-group">
+    <label for="password">Mot de passe</label>
+    <input type="password" formControlName="password" placeholder="Votre mot de passe" id="password" autocomplete="current-password" /> </div>
+
+  <button style="display: block;" type="submit" [disabled]="loginForm.invalid">Soumettre</button>
 </form>
 <div id="register">
   <p>Pas de compte ?</p>

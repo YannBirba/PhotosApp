@@ -19,14 +19,14 @@ html {
 
     #app-root {
       display: flex;
-      flex-flow: column wrap;
-      justify-content: start;
+      justify-content: flex-start;
       align-items: stretch;
       min-height: 100vh;
+      flex-wrap: wrap;
       #footer {
         min-height: 5vh;
-        position: fixed;
         bottom: 0;
+        flex-basis: 100%;
       }
       .container {
         max-width: 1200px;
@@ -108,19 +108,6 @@ html {
       width: 30rem;
       flex-direction: column;
       margin-inline: auto;
-      .control-group {
-        margin-block: 0.5rem;
-        display: flex;
-        align-items: stretch;
-        text-align: left;
-        gap: 0.5rem;
-        flex-direction: column;
-        width: 100%;
-        > * {
-          width: 100%;
-          text-align: left;
-        }
-      }
     }
   }
   .close-modal {
@@ -141,4 +128,47 @@ html {
   justify-content: center;
   align-items: center;
   gap: 2rem;
+}
+
+#router-outlet {
+  &.login {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &.router-outlet {
+    min-height: calc(90vh - 2rem);
+    flex-basis: 60rem;
+    margin-inline: auto;
+    display: flex;
+    justify-content: flex-start;
+    align-items: stretch;
+    padding-block: 1rem;
+    gap: 2rem;
+    flex-direction: column;
+    padding-inline: 1rem;
+    max-width: 100%;
+  }
+}
+nav a,
+nav a:visited {
+  margin: 0;
+}
+nav {
+  padding: 0;
+}
+
+.control-group {
+  margin-block: 0.5rem;
+  display: flex;
+  align-items: stretch;
+  text-align: left;
+  gap: 0.5rem;
+  flex-direction: column;
+  width: 100%;
+  > * {
+    width: 100%;
+    text-align: left;
+  }
 }

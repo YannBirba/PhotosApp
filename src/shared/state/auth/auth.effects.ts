@@ -35,8 +35,8 @@ export class AuthEffects {
       ofType(login.type),
       mergeMap(({ login }) =>
         this.authService.login(login).pipe(
-          map((response) => {
-            this.router.navigate(['/user']);
+          map(() => {
+            // this.router.navigate(['/']);
             return loginResponse({ login });
           }),
           catchError((error) => {
@@ -56,8 +56,8 @@ export class AuthEffects {
       ofType(register.type),
       mergeMap(({ register }) =>
         this.authService.register(register).pipe(
-          map((response) => {
-            this.router.navigate(['/user/login']);
+          map(() => {
+            // this.router.navigate(['/user/login']);
             return registerResponse({ register });
           }),
           catchError((error) => {
@@ -78,7 +78,7 @@ export class AuthEffects {
     mergeMap(() =>
       this.authService.logout().pipe(
         map(() => {
-          this.router.navigate(['/user/login']);
+          // this.router.navigate(['/user/login']);
           return logoutResponse();
         }),
         catchError((error) => {

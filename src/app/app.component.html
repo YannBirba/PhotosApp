@@ -1,4 +1,5 @@
-
 <app-menu *ngIf="(currentUser$ | async)?.email" id="menu"></app-menu>
-<router-outlet></router-outlet>
+<div [ngClass]="{'router-outlet': (currentUser$ | async)?.email, 'login':!(currentUser$ | async)?.email}" id="router-outlet">
+  <router-outlet></router-outlet>
+</div>
 <app-footer *ngIf="(currentUser$ | async)?.email" id="footer"></app-footer>

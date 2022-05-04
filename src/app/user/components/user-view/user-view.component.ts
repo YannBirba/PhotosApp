@@ -37,7 +37,6 @@ export class UserViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(currentUser());
     this.currentUser$ = this.store.select(selectCurrentUser);
   }
   openModal(dialog: any, currentUser : User): void {
